@@ -42,7 +42,11 @@ function process() {
     var expectedLineArray = [];
 
     var skipDurationExpected = 0;
-    var sameLineCountExpected = 0;
+
+    var actualArray = [];
+    var actualLineArray = [];
+
+    var skipDurationActual = 0;
 
     for (let i=0; i<expected.length; i++) {
         if (skipDurationExpected == 0) {
@@ -68,30 +72,6 @@ function process() {
         }
     }
 
-    for (let i=0; i<expectedArray.length; i++) {
-        let line = document.createElement("p");
-
-        for (let j=0; j<expectedArray[i].length; j++) {
-            let text;
-
-            if (expectedArray[i][j] == " ") {
-                text = document.createTextNode("\xa0")
-            } else {
-                text = document.createTextNode(expectedArray[i][j])
-            }
-
-            line.appendChild(text);
-        }
-        
-        expectedDisplay.appendChild(line)
-    }
-
-    var actualArray = [];
-    var actualLineArray = [];
-
-    var skipDurationActual = 0;
-    var sameLineCountActual = 0;
-
     for (let i=0; i<actual.length; i++) {
         if (skipDurationActual == 0) {
             if (actual[i] == "%") {
@@ -116,23 +96,63 @@ function process() {
         }
     }
 
+    for (let i=0; i<expectedArray.length; i++) {
+        let line = document.createElement("p");
+    
+        if (expectedArray[i].length == 0) {
+            let line = document.createElement("br")
+            expectedDisplay.appendChild(line);
+        } else {
+            for (let j=0; j<expectedArray[i].length; j++) {
+                let textContent; 
+    
+                let textBg = document.createElement("span");
+    
+                if (expectedArray[i][j] == " ") {
+                    textContent = document.createTextNode("\xa0")
+                } else {
+                    textContent = document.createTextNode(expectedArray[i][j])
+                }
+                
+                textBg.appendChild(textContent)
+                
+                if (expectedArray[i][j] != expectedArray[i][j]) {
+                        textBg.style.cssText = "background-color:#EB4747;"
+                } 
+    
+                line.appendChild(textBg);
+            }
+        }
+        
+        expectedDisplay.appendChild(line)
+    }
+
     for (let i=0; i<actualArray.length; i++) {
         let line = document.createElement("p");
 
-        for (let j=0; j<actualArray[i].length; j++) {
-            let text;
-
-            if (actualArray[i][j] == " ") {
-                text = document.createTextNode("\xa0")
-            } else {
-                text = document.createTextNode(actualArray[i][j])
+        if (actualArray[i].length == 0) {
+            let line = document.createElement("br")
+            actualDisplay.appendChild(line);
+        } else {
+            for (let j=0; j<actualArray[i].length; j++) {
+                let textContent; 
+    
+                let textBg = document.createElement("span");
+    
+                if (actualArray[i][j] == " ") {
+                    textContent = document.createTextNode("\xa0")
+                } else {
+                    textContent = document.createTextNode(actualArray[i][j])
+                }
+                
+                textBg.appendChild(textContent)
+                
+                if (actualArray[i][j] != expectedArray[i][j]) {
+                        textBg.style.cssText = "background-color:#EB4747;"
+                } 
+    
+                line.appendChild(textBg);
             }
-
-            if (actualArray[i][j] != expectedArray[i][j]) {
-                line.style.cssText = "background-color:#EB4747;"
-            }
-
-            line.appendChild(text);
         }
         
         actualDisplay.appendChild(line)
