@@ -114,10 +114,10 @@ function process() {
                     textContent = document.createTextNode(expectedArray[i][j])
                 }
                 
-                textBg.appendChild(textContent)
-                
-                if (expectedArray[i][j] != expectedArray[i][j]) {
-                        textBg.style.cssText = "background-color:#EB4747;"
+                textBg.appendChild(textContent);
+
+                if (expectedArray[i][j] != actualArray[i][j]) {
+                        textBg.style.cssText = "background-color:#495057;"
                 } 
     
                 line.appendChild(textBg);
@@ -148,7 +148,7 @@ function process() {
                 textBg.appendChild(textContent)
                 
                 if (actualArray[i][j] != expectedArray[i][j]) {
-                        textBg.style.cssText = "background-color:#EB4747;"
+                    textBg.style.cssText = "background-color:#EB4747;"
                 } 
     
                 line.appendChild(textBg);
